@@ -13,4 +13,39 @@
 
 # Examples
 
-<p>code</p>
+<p>code for read</p>
+<pre>
+	<code>
+	public static void read() throws Exception{
+		ExcelRSheetProcessor<UserInfo> sheetProcessor = new ExcelRSheetProcessor<UserInfo>() {
+			@Override
+			public void beforeProcess() {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void process(List<UserInfo> list) {
+				for (UserInfo info : list) {
+					System.out.println("id=" + info.getId() + " name=" + info.getName() + " cardNo=" + info.getCardNo()
+							+ " salary=" + info.getSalary() + " personInsTitle=" + info.getPersonInsTitle()
+							+ " firmInsTitle=" + info.getFirmInsTitle()
+							+ " personIns=" + info.getPersonIns() + " firmIns=" + info.getFirmIns());
+				}
+			}
+			@Override
+			public void afterProcess() {
+				// TODO Auto-generated method stub
+			}
+			@Override
+			public void exceptionHandler(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		sheetProcessor.setRowStartIndex(1);
+		sheetProcessor.setPageSize(7);
+		final String filePath = "F:\\tmp\\salary.xls";
+		File file = new File(filePath);
+		FileInputStream input = new FileInputStream(file);
+		ExcelRead.read(input, sheetProcessor);
+	}
+	</code>
+</pre>
