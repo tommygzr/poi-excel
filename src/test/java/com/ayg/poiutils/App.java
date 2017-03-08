@@ -21,19 +21,16 @@ import com.whl.poi.demo.UserInfo;
 
 public class App {
 	public static void main(String[] args) throws Exception {
-//		read();
+		read();
 		write();
 	}
 	
 	private static void read() throws Exception{
 		ExcelRSheetProcessor<UserInfo> sheetProcessor = new ExcelRSheetProcessor<UserInfo>() {
-
 			@Override
 			public void beforeProcess() {
 				// TODO Auto-generated method stub
-				
 			}
-
 			@Override
 			public void process(List<UserInfo> list) {
 				
@@ -43,25 +40,20 @@ public class App {
 							+ " personIns=" + info.getPersonIns() + " firmIns=" + info.getFirmIns());
 				}
 			}
-
 			@Override
 			public void afterProcess() {
 				// TODO Auto-generated method stub
-				
 			}
-
 			@Override
 			public void exceptionHandler(Exception e) {
-				
+				e.printStackTrace();
 			}
-			
 		};
 		sheetProcessor.setRowStartIndex(1);
 		sheetProcessor.setPageSize(7);
 		final String filePath = "F:\\tmp\\salary.xls";
 		File file = new File(filePath);
 		FileInputStream input = new FileInputStream(file);
-
 		ExcelRead.read(input, sheetProcessor);
 	}
 	
