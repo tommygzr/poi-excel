@@ -112,6 +112,9 @@ public class ExcelRead {
 	}
 
 	private static Object getCell(Cell cell, Class<?> clazz) {
+		if(null == cell) {
+			return null;
+		}
 		if (clazz.equals(short.class) || clazz.equals(Short.class)) {
 			return (short) cell.getNumericCellValue();
 		} else if (clazz.equals(int.class) || clazz.equals(Integer.class)) {

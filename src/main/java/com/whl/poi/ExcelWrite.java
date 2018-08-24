@@ -86,7 +86,7 @@ public class ExcelWrite {
 					if (pageSize > 0) {
 						int size = dataList.size();
 						if (pageSize < size) {
-							int part = size / pageSize;//分批数
+							int part = size / pageSize;// 分批数
 							for (int i = 0; i < part; i++) {
 								List<?> listPage = dataList.subList(0, pageSize);
 								writeRowIndex = write(sheetProcessor, listPage, clazz, cellStyles, writeRowIndex);
@@ -161,6 +161,9 @@ public class ExcelWrite {
 	}
 
 	private static void setCell(Cell cell, Class<?> clazz, Object val) {
+		if (null == val) {
+			return;
+		}
 		if (clazz.equals(short.class) || clazz.equals(Short.class)) {
 			cell.setCellValue((Short) val);
 		} else if (clazz.equals(int.class) || clazz.equals(Integer.class)) {
@@ -173,7 +176,7 @@ public class ExcelWrite {
 			cell.setCellValue((Double) val);
 		} else if (clazz.equals(BigDecimal.class)) {
 			cell.setCellValue(((BigDecimal) val).doubleValue());
-			
+
 		} else {
 			cell.setCellValue(val.toString());
 		}
@@ -185,7 +188,7 @@ public class ExcelWrite {
 		for (Field field : declaredFields) {
 			Column column = field.getAnnotation(Column.class);
 			if (!StringUtils.isEmpty(column.format())) {
-				CellStyle cellStyle =workbook.createCellStyle();
+				CellStyle cellStyle = workbook.createCellStyle();
 				cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat(column.format()));
 				cellStyles.put(field.getName(), cellStyle);
 			}
